@@ -59,7 +59,14 @@ public class ArrayBasedQueue<T> implements Queue<T> {
 
   @Override
   public boolean isFull() {
-    return this.back() >= this.values.length;
+    for(int i = 0; i<this.values.length; i++){
+      if(this.values[i] == null){
+        return false;
+      }
+    }
+
+    return true;
+    //return this.back() >= this.values.length;
   } // isFull()
 
   @Override
@@ -78,8 +85,9 @@ public class ArrayBasedQueue<T> implements Queue<T> {
     } // if empty
     // Grab and clear the element at the front of the queue
     T result = this.values[this.front];
-    this.values[this.front++] = null;
+    this.values[this.front] = null;
     // We're removing an element, so decrement the size
+    this.front = ++this.front%this.values.length;
     --this.size;
     // And we're done
     return result;
@@ -116,7 +124,7 @@ public class ArrayBasedQueue<T> implements Queue<T> {
    * Get the index of the back of the queue. The back is where we add the next element.
    */
   int back() {
-    return this.size + this.front;
+    return (this.size + this.front) % this.values.length;
   } // back()
 
 } // class ArrayBasedQueue<T>
