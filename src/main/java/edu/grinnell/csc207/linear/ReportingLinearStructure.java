@@ -32,6 +32,13 @@ public class ReportingLinearStructure<T> implements LinearStructure<T> {
   // | Constructors |
   // +--------------+
 
+  public ReportingLinearStructure(LinearStructure<T> ls){
+    this.ls = ls;
+    this.pen = new PrintWriter(System.err, true);
+    this.prefix = ls.getClass().toString();
+  }
+
+
   /**
    * Build a new experiment that uses `ls` to do the work and prints comments 
    * using `pen`, with each comment prefixed by `prefix`.
@@ -54,9 +61,9 @@ public class ReportingLinearStructure<T> implements LinearStructure<T> {
    * Build a new experiment that uses ls to do the real work and prints 
    * comments to stdout using no prefix.
    */
-  public ReportingLinearStructure(LinearStructure<T> ls) {
-    this(ls, new PrintWriter(System.out, true), "");
-  } // ReportingLinearStructure(LinearStructure<T>)
+  // public ReportingLinearStructure(LinearStructure<T> ls) {
+  //   this(ls, new PrintWriter(System.out, true), "");
+  // } // ReportingLinearStructure(LinearStructure<T>)
 
   // +-------------------------+-----------------------------------------
   // | LinearStructure Methods |
