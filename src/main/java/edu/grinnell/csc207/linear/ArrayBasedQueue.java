@@ -33,6 +33,7 @@ public class ArrayBasedQueue<T> implements Queue<T> {
   // | Constructors |
   // +--------------+
 
+
   /**
    * Create a new queue that holds up to capacity elements.
    */
@@ -87,7 +88,7 @@ public class ArrayBasedQueue<T> implements Queue<T> {
     T result = this.values[this.front];
     this.values[this.front] = null;
     // We're removing an element, so decrement the size
-    this.front = ++this.front%this.values.length;
+    this.front = ++this.front % this.values.length;
     --this.size;
     // And we're done
     return result;
