@@ -5,6 +5,7 @@ Authors:
 * Samuel A. Rebelsky
 * Sarah Deschamps
 * Alex Cyphers
+* Grant Sackmann
 
 The latest version of the CSC-207 lab on linear structures, now with Maven.
 
