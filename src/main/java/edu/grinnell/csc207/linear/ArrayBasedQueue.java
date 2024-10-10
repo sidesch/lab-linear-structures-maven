@@ -167,7 +167,12 @@ class ArrayBasedQueueIterator<T> implements Iterator<T> {
   } // hasNext()
 
   @Override
-  public void remove() throws UnsupportedOperationException {
-    throw new UnsupportedOperationException();
+  public void remove() {
+    try {
+      abq.dequeue();
+      cur++;
+    } catch (Exception e) {
+    // Silently fails 
+    }
   } // remove()
 } // ArrayBasedQueueIterator<T>
