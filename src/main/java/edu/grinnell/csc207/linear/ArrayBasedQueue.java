@@ -114,7 +114,32 @@ public class ArrayBasedQueue<T> implements Queue<T> {
 
   @Override
   public Iterator<T> iterator() {
-    return new ArrayBasedQueueIterator<T>(this);
+    return new Iterator<T>() {
+      int cur = 0;
+
+      @Override
+      public T next() throws NoSuchElementException {
+        if (!this.hasNext()) {
+          throw new NoSuchElementException("no elements remain");
+        } // if no elements
+        return values[cur++];
+      } // next()
+
+      @Override
+      public boolean hasNext() {
+        return cur < size;
+      } // hasNext()
+
+      @Override
+      public void remove() {
+        try {
+          dequeue();
+          cur++;
+        } catch (Exception e) {
+        // Silently fails 
+        }
+      } // remove()
+    };
   } // iterator()
 
   // +----------------+--------------------------------------------------
@@ -129,50 +154,3 @@ public class ArrayBasedQueue<T> implements Queue<T> {
   } // back()
 
 } // class ArrayBasedQueue<T>
-
-
-class ArrayBasedQueueIterator<T> implements Iterator<T> {
-  // +--------+----------------------------------------------------------
-  // | Fields |
-  // +--------+
-  ArrayBasedQueue<T> abq;
-  int cur;
-  // +--------------+----------------------------------------------------
-  // | Constructors |
-  // +--------------+
-
-  /**
-   * Create a new iterator.
-   */
-  public ArrayBasedQueueIterator(ArrayBasedQueue<T> q) {
-    this.abq = q;
-    this.cur = 0;
-  } // ArrayBasedQueueIterator
-
-  // +---------+---------------------------------------------------------
-  // | Methods |
-  // +---------+
-
-  @Override
-  public T next() throws NoSuchElementException {
-    if (!this.hasNext()) {
-      throw new NoSuchElementException("no elements remain");
-    } // if no elements
-    return abq.values[cur++];
-  } // next()
-
-  @Override
-  public boolean hasNext() {
-    return cur < abq.size;
-  } // hasNext()
-
-  @Override
-  public void remove() {
-    try {
-      abq.dequeue();
-      cur++;
-    } catch (Exception e) {
-    // Silently fails 
-    }
-  } // remove()
-} // ArrayBasedQueueIterator<T>
